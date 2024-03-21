@@ -10,8 +10,8 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "release" ]
-  pull_request:
-    branches: [ "release" ]
+#  pull_request:
+#    branches: [ "release" ]
 
 # 직접 추가
 permissions:
@@ -88,6 +88,7 @@ jobs:
         envs: TOMCAT_PATH, TARGET_DIR
         script: |
           sudo $TOMCAT_PATH/bin/shutdown.sh
-          sudo cp $TARGET_DIR/build/libs/*.war $TOMCAT_PATH/webapps
-          sudo cp $TARGET_DIR/build/libs/*.war $TOMCAT_PATH/webapps-javaee
+          sudo cp $TARGET_DIR/build/libs/*SNAPSHOT.war $TOMCAT_PATH/webapps
           sudo $TOMCAT_PATH/bin/startup.sh
+
+# sudo cp $TARGET_DIR/build/libs/*.war $TOMCAT_PATH/webapps

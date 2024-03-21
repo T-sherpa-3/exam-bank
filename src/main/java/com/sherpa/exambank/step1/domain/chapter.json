@@ -1,0 +1,34 @@
+{
+  "successYn": "Y",
+  "chapterList": [
+    {
+      "curriculumCode": "15",
+      "curriculumName": "2015개정 교육과정",
+      "subjectId": "1136",
+      "subjectName": "수학1(류희찬)",
+      "largeChapterId": "113601",
+      "largeChapterName": "Ⅰ. 소인수분해",
+      "mediumChapterId": "11360101",
+      "mediumChapterName": "1. 소수와 합성수",
+      "smallChapterId": "1136010101",
+      "smallChapterName": "1. 소수와 합성수",
+      "topicChapterId": "113601010101",
+      "topicChapterName": "거듭제곱으로 표현"
+    },
+    {
+      "curriculumCode": "15",
+      "curriculumName": "2015개정 교육과정",
+      "subjectId": "1136",
+      "subjectName": "수학1(류희찬)",
+      "largeChapterId": "113601",
+      "largeChapterName": "Ⅰ. 소인수분해",
+      "mediumChapterId": "11360101",
+      "mediumChapterName": "1. 소수와 합성수",
+      "smallChapterId": "1136010101",
+      "smallChapterName": "1. 소수와 합성수",
+      "topicChapterId": "113601010102",
+      "topicChapterName": "소수와 합성수"
+    }
+  ]
+}
+

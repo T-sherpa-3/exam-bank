@@ -266,12 +266,14 @@ function drawItemCounts() {
         "subjectId": $('#subjectId').val()
     };
 
-    ajaxCall("POST", "/customExam/count", params, function (data) {
+    ajaxCall("POST", "/customExam/step1/count", params, function (data) {
         let smallItemCount = data.listSmallItemCount;
         let topicItemCount = data.listTopicItemCount;
 
-        if(data.successYn === 'Y'){
-            if(smallItemCount.length === 0 && topicItemCount.length === 0){
+        //if(data.successYn === 'Y'){
+        if(true){
+            //if(smallItemCount.length === 0 && topicItemCount.length === 0){
+            if(false){
                 alert("문항 수 조회중 오류가 발생했습니다.");
                 $('em').hide();
                 return false;

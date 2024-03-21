@@ -17,51 +17,29 @@
     <link rel="stylesheet" href="/resource/popup/css/reset.css">
 <%--    <link rel="stylesheet" href="/resource/midhigh/assets/css/common.css">--%>
     <link rel="stylesheet" href="/resource/popup/css/common.css">
-    <!-- S 230808 순서 변경-->
+
     <script src="/resource/popup/js/jquery-1.12.4.min.js"></script>
     <script src="/resource/popup/js/jquery-3.6.0.min.js"></script>
     <script src="/resource/popup/js/jquery-ui.js"></script>
     <script src="/resource/popup/js/swiper-bundle.min.js"></script>
-    <!-- E 230808 순서 변경-->
     <script type="text/javascript" src="/resource/popup/js/common_que.js"></script>
     <script type="text/javascript" src="/resource/popup/js/lodash.min.js"></script>
     <script>
 
-        // $.ajax({
-        //     url: "https://sso.chunjae.co.kr:446/api/auth/Validation",
-        //     data: { sessionData: "Z9oqux5Fi7d3oS6IczOqyHSFFD1PiwlXPTooBC4wOcQ2XpNH0F4AnzRFqwyBiK153xt/Fq8tuswyTSm1YqIsYw==" },
-        //     dataType: 'json',
-        //     cache : false,
-        //     success: function (data) {
-        //         if (data && data.Result) {
-        //             let Items = data.Result.Items;
-        //             $.ajax({
-        //                 url: "https://sso.chunjae.co.kr:446/api/auth/Authorize?Token=" + Items.Token,
-        //                 dataType: 'text',
-        //                 xhrFields: {
-        //                     withCredentials: true
-        //                 },
-        //                 cache : false,
-        //                 success: function (data) {
-        //                     let reg = /_ChunjaeSSOEncData = '(.*)';/
-        //                     let ssoData = reg.exec(data)[1];
-        //                     if (ssoData) {
-        //                         $.ajax({
-        //                             url: "/user/ssoLogin",
-        //                             data: {
-        //                                 ssoData: ssoData
-        //                             },
-        //                             type: "post",
-        //                             success: function (res) {}
-        //                         })
-        //                     } else {
-        //                         location.href="/user/ssoLogout";
-        //                     }
-        //                 }
-        //             });
-        //         }
-        //     }
-        // });
+        function moveToStep1() {
+            let new_form = $('<form></form>');
+            new_form.attr("name", "Subject");
+            new_form.attr("charset", "UTF-8");
+            new_form.attr("method", "post");
+            new_form.attr("action", "/customExam/step1");
+
+            new_form.append($('<input/>', {type: 'hidden', name: 'subjectId', value: $("#subjectId").val()}));
+            new_form.append($('<input/>', {type: 'hidden', name: 'subjectName', value: $("#subjectName").text()}));
+            new_form.append($('<input/>', {type: 'hidden', name: 'curriculumName', value: $("#curriculumName").text()}));
+
+            new_form.appendTo('body');
+            new_form.submit();
+        }
     </script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -537,9 +515,9 @@
                     <div class="paper-info">
 
                         <span></span>
-                        <input type="hidden" id="subjectId" name="subjectId" value="${chapterList[0].subjectId}">
-                        <span class="subject">${chapterList[0].subjectName}</span>
-                        <span>${chapterList[0].curriculumName}</span>
+                        <input type="hidden" id="subjectId" name="subjectId" value="${subjectId}">
+                        <span id="subjectName" class="subject">${subjectName}</span>
+                        <span id="curriculumName">${curriculumName}</span>
                         <span class="number">
 								    <span class="tooltip-wrap">
 									<button class="tip-btn blue" id="chk_item_cnt">0</button>
@@ -558,7 +536,7 @@
                     </div>
                     <div class="btn-wrap">
                         <button class="btn-icon" id="modify-setting-btn"><i class="edit"></i>선택한 시험지 편집하기</button>
-                        <button class="btn-icon type-white" id="create-paper-btn"><i class="newpaper"></i>신규 시험지 만들기</button>
+                        <button class="btn-icon type-white" id="create-paper-btn" onclick="moveToStep1();"><i class="newpaper"></i>신규 시험지 만들기</button>
                     </div>
                 </div>
                 <div class="view-bottom">
@@ -566,7 +544,7 @@
                         <div class="scroll-inner">
 
                             <%-- 지원 테스트 start --%>
-                            <c:forEach var="item" items="${response}">
+                            <c:forEach var="item" items="${examListResponse}">
 
                             <button type="button" class="acc-btn">${item.largeChapterName}</button>
                             <div class="cnt">
@@ -587,18 +565,18 @@
                                                 <span>${examInfo.itemCnt}</span>
                                                 <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>
                                                 <span>
-                                                                        <div class="btn-wrap">
-                                                                            <div class="tooltip-wrap type01">
-                                                                                <button type="button" class="btn-default download-btn" data-type="A">전체</button>
-                                                                                <div class="tooltip type03">
-                                                                                    <div class="tool-type01">문제+정답+해설</div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <button type="button" class="btn-default download-btn" data-type="Q">문제</button>
-                                                                            <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>
-                                                                            <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>
-                                                                        </div>
-                                                                    </span>
+                                                    <div class="btn-wrap">
+                                                        <div class="tooltip-wrap type01">
+                                                            <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="A">전체</button>
+                                                            <div class="tooltip type03">
+                                                                <div class="tool-type01">문제+정답+해설</div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="Q">문제</button>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="E">정답+해설</button>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="C">문항정보표</button>
+                                                    </div>
+                                                </span>
                                                 <input type="hidden" class="paperId" value="${examInfo.examId}">
                                                 <input type="hidden" class="paperTitle" value="${examInfo.examName}">
                                                 <input type="hidden" class="itemCnt" value="${examInfo.itemCnt}">
@@ -609,1010 +587,15 @@
                                 </div>
                             </div>
                             </c:forEach>
-                            <%-- 지원 테스트 end --%>
 
-<%--                            <button type="button" class="acc-btn">-----1. 문학의 샘</button>--%>
-<%--                            <div class="cnt">--%>
-<%--                                <div class="table">--%>
-<%--                                    <div class="fix-head">--%>
-<%--                                        <span>선택</span>--%>
-<%--                                        <span>시험지명</span>--%>
-<%--                                        <span>문항수</span>--%>
-<%--                                        <span>미리보기</span>--%>
-<%--                                        <span>다운로드</span>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="tbody" id="setting_list">--%>
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_0" class="chk_paperId"><label for="chk_0"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>22</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="768">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="22">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_4" class="chk_paperId"><label for="chk_4"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-1_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>16</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="772">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-1_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="16">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_8" class="chk_paperId"><label for="chk_8"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-1_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>11</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="775">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-1_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="11">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_12" class="chk_paperId"><label for="chk_12"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-1_단원평가_4회_T셀파</span>--%>
-<%--                                            <span>13</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="781">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-1_단원평가_4회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="13">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_16" class="chk_paperId"><label for="chk_16"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>23</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="791">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="23">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_20" class="chk_paperId"><label for="chk_20"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-2_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>30</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="797">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-2_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="30">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_26" class="chk_paperId"><label for="chk_26"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-2_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>18</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="3468">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-2_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="18">--%>
-<%--                                        </div>--%>
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_27" class="chk_paperId"><label for="chk_27"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-선택 학습 1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>10</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="805">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-선택 학습 1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="10">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_29" class="chk_paperId"><label for="chk_29"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_1-선택 학습 2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>8</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="810">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_1-선택 학습 2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="8">--%>
-<%--                                        </div>--%>
-
-
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-
-<%--                            <button type="button" class="acc-btn">2. 너의 생각, 나의 생각</button>--%>
-<%--                            <div class="cnt">--%>
-<%--                                <div class="table">--%>
-<%--                                    <div class="fix-head">--%>
-<%--                                        <span>선택</span>--%>
-<%--                                        <span>시험지명</span>--%>
-<%--                                        <span>문항수</span>--%>
-<%--                                        <span>미리보기</span>--%>
-<%--                                        <span>다운로드</span>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="tbody" id="setting_list">--%>
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_1" class="chk_paperId"><label for="chk_1"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>20</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="816">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="20">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_5" class="chk_paperId"><label for="chk_5"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-1_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>25</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="837">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-1_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="25">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_9" class="chk_paperId"><label for="chk_9"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-1_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>20</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="891">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-1_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="20">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_13" class="chk_paperId"><label for="chk_13"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>21</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="896">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="21">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_17" class="chk_paperId"><label for="chk_17"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-2_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>27</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="898">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-2_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="27">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_21" class="chk_paperId"><label for="chk_21"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-2_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>15</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="900">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-2_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="15">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_24" class="chk_paperId"><label for="chk_24"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-선택 학습 1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>13</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="903">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-선택 학습 1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="13">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_28" class="chk_paperId"><label for="chk_28"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_2-선택 학습 2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>2</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="906">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_2-선택 학습 2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="2">--%>
-<%--                                        </div>--%>
-
-
-
-
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-
-<%--                            <button type="button" class="acc-btn">3. 탐구하는 우리</button>--%>
-<%--                            <div class="cnt">--%>
-<%--                                <div class="table">--%>
-<%--                                    <div class="fix-head">--%>
-<%--                                        <span>선택</span>--%>
-<%--                                        <span>시험지명</span>--%>
-<%--                                        <span>문항수</span>--%>
-<%--                                        <span>미리보기</span>--%>
-<%--                                        <span>다운로드</span>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="tbody" id="setting_list">--%>
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_2" class="chk_paperId"><label for="chk_2"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>21</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="944">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="21">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_6" class="chk_paperId"><label for="chk_6"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-1_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>25</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="950">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-1_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="25">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_10" class="chk_paperId"><label for="chk_10"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-1_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>20</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="955">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-1_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="20">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_14" class="chk_paperId"><label for="chk_14"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>22</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="962">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="22">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_18" class="chk_paperId"><label for="chk_18"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-2_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>27</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="968">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-2_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="27">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_22" class="chk_paperId"><label for="chk_22"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_3-2_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>19</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="970">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_3-2_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="19">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-
-<%--                            <button type="button" class="acc-btn">4. 세상을 보는 눈</button>--%>
-<%--                            <div class="cnt">--%>
-<%--                                <div class="table">--%>
-<%--                                    <div class="fix-head">--%>
-<%--                                        <span>선택</span>--%>
-<%--                                        <span>시험지명</span>--%>
-<%--                                        <span>문항수</span>--%>
-<%--                                        <span>미리보기</span>--%>
-<%--                                        <span>다운로드</span>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="tbody" id="setting_list">--%>
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_3" class="chk_paperId"><label for="chk_3"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>25</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="973">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="25">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_7" class="chk_paperId"><label for="chk_7"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-1_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>23</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="978">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-1_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="23">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_11" class="chk_paperId"><label for="chk_11"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>26</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="981">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="26">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_15" class="chk_paperId"><label for="chk_15"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-2_단원평가_2회_T셀파</span>--%>
-<%--                                            <span>25</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="985">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-2_단원평가_2회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="25">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_19" class="chk_paperId"><label for="chk_19"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-2_단원평가_3회_T셀파</span>--%>
-<%--                                            <span>15</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="990">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-2_단원평가_3회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="15">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_23" class="chk_paperId"><label for="chk_23"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-선택 학습 1_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>17</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="1004">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-선택 학습 1_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="17">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-<%--                                        <div class="col">--%>
-<%--                                            <span><input type="checkbox" id="chk_25" class="chk_paperId"><label for="chk_25"></label></span>--%>
-<%--                                            <span class="tit">중_ 국어 3-2(노)_4-선택 학습 2_단원평가_1회_T셀파</span>--%>
-<%--                                            <span>7</span>--%>
-<%--                                            <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>--%>
-<%--                                            <span>--%>
-<%--                                                                    <div class="btn-wrap">--%>
-<%--                                                                        <div class="tooltip-wrap type01">--%>
-<%--                                                                            <button type="button" class="btn-default download-btn" data-type="A">전체</button>--%>
-<%--                                                                            <div class="tooltip type03">--%>
-<%--                                                                                <div class="tool-type01">문제+정답+해설</div>--%>
-<%--                                                                            </div>--%>
-<%--                                                                        </div>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="Q">문제</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>--%>
-<%--                                                                        <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>--%>
-<%--                                                                    </div>--%>
-<%--                                                                </span>--%>
-<%--                                            <input type="hidden" class="paperId" value="1010">--%>
-<%--                                            <input type="hidden" class="paperTitle" value="중_ 국어 3-2(노)_4-선택 학습 2_단원평가_1회_T셀파">--%>
-<%--                                            <input type="hidden" class="itemCnt" value="7">--%>
-<%--                                        </div>--%>
-
-
-
-
-
-
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="loading-cnt" style="display:none">
-                            <img src="/resource/popup/img/loading_icon.gif" alt="로딩중">
-                            <div class="txt-box">
-                                <span class="tit">LOADING<br>잠시만 기다려주세요.</span>
-                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="loading-cnt" style="display:none">
+                <img src="/resource/popup/img/loading_icon.gif" alt="로딩중">
+                <div class="txt-box">
+                    <span class="tit">LOADING<br>잠시만 기다려주세요.</span>
                 </div>
             </div>
         </div>
@@ -1626,7 +609,7 @@
     <div class="pop-inner">
         <div class="pop-header">
             <div class="tit-top">
-                <span id="preview_tit"></span>
+                <span id="preview_tit">[시험지명]</span>
                 <em id="preview_cnt"></em>
                 <input type="hidden" id="preview_paperId">
             </div>
@@ -1636,7 +619,7 @@
             <div class="tab-wrap">
                 <ul class="tab-menu-type02" id="preview-tab">
                     <li class="active">
-                        <a href="javascript:;" data-type="A">문제 + 정답 + 해설</a>
+                        <a href="javascript:" data-type="A">문제 + 정답 + 해설</a>
                     </li>
                     <li class="">
                         <a href="javascript:;" data-type="Q">문제</a>
@@ -1706,8 +689,47 @@
         </div> -->
     </div>
 </div>
+<script>
+    $(".download-btn").on('click',function (){
+        let examName = $(".paperTitle").attr("value");
+        let examId = $(this).attr("exam-id");
+        let dataType = $(this).attr("data-type");
+
+        const data = {
+            "examId": examId,
+            "dataType": dataType
+        }
+
+        // 시험지 id에 따른 itemlist 요청
+        $.ajax({
+            type : 'post',           // 타입 (get, post, put 등등)
+            url : '/exambank/customExamAPI/getSettingItemList', // 요청할 서버 url
+            async : true,            // 비동기화 여부 (default : true)
+            dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+            contentType: 'application/json',
+            data :  JSON.stringify(data),
+            success : function(result) { // 결과 성공 콜백함수
+                console.log(result.itemList);
+                renderImg(examName,result.itemList);
+
+            },
+            error : function(request, status, error) { // 결과 에러 콜백함수
+                console.log(error)
+            }
+        });
+        alert("test");
+
+    });
 
 
-<%--<script type="text/javascript" src="./T셀파 문제은행_출제방법_files/stepZero.js.다운로드"></script>--%>
+    /* 미리보기 버튼 클릭시 */
+    $(".preview-btn").on('click',function (){
+        $(".dim").show();
+        $("#q-preview").show();
 
-</body></html>
+    });
+</script>
+
+</body>
+</html>
+<%@ include file="makeExamPaper.jsp"%>

@@ -1,9 +1,16 @@
 package com.sherpa.exambank.step2.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-public class ItemDTO {  // response
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ItemDTO {
     private int itemNo;
     private Long itemId;
     private String questionFormCode;
@@ -24,6 +31,4 @@ public class ItemDTO {  // response
     private String answerUrl;
     private String explainUrl;
     private String passageYn;
-    /*private String successYn;*/
-
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sherpa.exambank.step3.mapper.TestSaveMapper">
+
+        <!-- 시험지 정보 저장 -->
+        <insert id="insertExamData" parameterType="com.sherpa.exambank.step3.domain.TestSaveDTO">
+            INSERT INTO tb_exam (name, user_seq, subject_name, item_cnt, reg_date, update_date, delete_flag, setting_subject)
+            VALUES (#{paperTitle}, 1 , #{subjectName}, 999, now(), now(), 0, 0)
+            <selectKey resultType="java.lang.Long" keyProperty="seq" order="AFTER">
+                SELECT LAST_INSERT_ID()
+            </selectKey>
+        </insert>
+
+        <!-- 시험지 문항 정보 저장 -->
+        <insert id="insertExamItemData" parameterType="com.sherpa.exambank.step3.domain.TestSaveDTO">
+            INSERT INTO tb_exam_item (exam_seq, item_no, item_id)
+            VALUES
+            <foreach collection="itemIdList" index="idx" item="item" separator=",">
+                (#{seq}, #{idx}, #{item})
+            </foreach>
+        </insert>
+
+        <!--    item_no 맥스값    -->
+        <select id="getMaxItemNo" resultType="java.lang.Long">
+            SELECT MAX(item_no) FROM tb_exam_item WHERE exam_seq = #{seq}
+        </select>
+
+    <!--    item_cnt 업데이트    -->
+    <update id="updateItemCount">
+            UPDATE tb_exam SET item_cnt = #{itemCnt} WHERE seq = #{seq}
+        </update>
+
+</mapper>

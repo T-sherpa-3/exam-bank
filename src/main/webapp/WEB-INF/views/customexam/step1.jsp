@@ -2899,8 +2899,8 @@
 </div>
 <!-- 문항 0인 경우 노출 팝업 -->
 
-<script type="text/javascript" src="../../js/common/common.js?version=20240308093133"></script>
-<script type="text/javascript" src="../../js/customExam/stepOne.js?version=20240308093133"></script>
+<!-- <script type="text/javascript" src="/resource/js/common/common.js?"></script> -->
+<script type="text/javascript" src="/resource/js/stepOne.js"></script>
 
 </body>
 </html>

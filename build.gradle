@@ -75,6 +75,7 @@ dependencies {
 	// 주석 아래로 작성 -- 이지연
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
 	// 주석 아래로 작성 -- 이창규
 

@@ -1657,7 +1657,7 @@ input[type=checkbox]:checked + label::before {
     width: 8px;
     height: 8px;
     transform: rotate(180deg);
-    background: url(../img/ico_arrow_tooltip_type01.png) no-repeat;
+    background: url(https://testbank.tsherpa.co.kr/images/common/ico_arrow_tooltip_type01.png) no-repeat;
 }
 .full-pop-que .full-pop-wrap .view-box .view-top {
     height: 80px;
@@ -2404,7 +2404,12 @@ input[type=checkbox]:checked + label::before {
     align-items: center;
     gap: 20px;
 }
-.full-pop-que .full-pop-wrap .view-box .que-badge-group.type01::after {
+.full-pop-que .full-pop-wrap .view-box .que-badge-group2 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.full-pop-que .full-pop-wrap .view-box .que-badge-group2.type01::after {
     content: "";
     display: block;
     clear: both;
@@ -2414,6 +2419,18 @@ input[type=checkbox]:checked + label::before {
     margin-right: 15px;
 }
 .full-pop-que .full-pop-wrap .view-box .que-badge-group .que-badge-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    /*.que-badge {
+        min-width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        padding: 0;
+    }*/
+}
+.full-pop-que .full-pop-wrap .view-box .que-badge-group2 .que-badge-wrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2438,6 +2455,19 @@ input[type=checkbox]:checked + label::before {
     font-weight: 500;
     line-height: 26px;
 }
+.full-pop-que .full-pop-wrap .view-box .que-badge-group2 .que-badge-wrap .que-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 45px;
+    height: 26px;
+    padding: 0 13px;
+    border-radius: 13px;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 26px;
+}
 .full-pop-que .full-pop-wrap .view-box .que-badge-group .que-badge-wrap .que-badge.yellow {
     background-color: #fff8f1;
     color: #ff8f21;
@@ -2450,7 +2480,7 @@ input[type=checkbox]:checked + label::before {
     background-color: #faf4ff;
     color: #7a02cf;
 }
-.full-pop-que .full-pop-wrap .view-box .que-badge-group .que-badge-wrap .que-badge.gray {
+.full-pop-que .full-pop-wrap .view-box .que-badge-group2 .que-badge-wrap .que-badge.gray {
     background-color: #a7a7a7;
     color: #fff;
 }
