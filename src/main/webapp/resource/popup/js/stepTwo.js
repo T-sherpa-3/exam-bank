@@ -533,12 +533,12 @@ $(function () {
       makeSummary($(e), $(e).attr("data-sortnum"), 'delete');
     });
     
-    // 문제지 요약 active
-    if (!$("#content-summary-area").hasClass('on')) {
+    // 삭제 문항 active
+    if (!$("#contents-delete-area").hasClass('on')) {
       $(".contents").removeClass('on');
-      $("#content-summary-area").addClass('on');
+      $("#contents-delete-area").addClass('on');
       $("#tab-right-group .ui-tab-btn").removeClass('active');
-      $("#tab-summary").addClass('active');
+      $("#tab-delete").addClass('active');
     }
     
     // 삭제 문항 nodata 숨김 처리
