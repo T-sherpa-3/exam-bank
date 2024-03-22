@@ -160,7 +160,7 @@
                               <div class="passage-area"><img src="${dto.passageUrl}" alt="${dto.passageId}"
                                                              width="453px">
                               </div>
-                              <div class="btn-wrap etc-btn-wrap" style="margin-top: 10px;">
+                              <div class="btn-wrap etc-btn-wrap" style="margin-top: 10px; display: none">
                                 <button type="button" class="btn-default btn-add" data-type="all"><i
                                         class="add-type02"></i>전체 추가
                                 </button>
