@@ -45,7 +45,6 @@ $(function () {
           }
         }
       }
-      
     }
     setSortNum("detail");
     
@@ -509,6 +508,8 @@ $(function () {
     if (btnType === "all") {
       // 전체 삭제는 문항 그룹 전체를 넘김
       convertItem(btnType, questionGroup, selectedPassageBox, "item-delete-area");
+      $("#item-delete-area").find('.btn-default.btn-add[data-type=all]').parent().css('display', 'block');
+      // $("#item-delete-area").find('.btn-default.btn-add[data-type=all]').show();
       questionGroup.remove();
       
     } else {
