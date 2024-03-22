@@ -13,49 +13,55 @@ $(function () {
     $(".passage-view-que-box.sort-group").each(function () {
       let passageId = $(this).children('.passage-box').attr('data-passageid');
       passageList.push(passageId);
-      
-      console.log("sortNum : ", $(this).data('sortnum'));
       console.log("지문 ID : ", passageId);  // 지문 ID 확인
+      console.log("sortNum : ", $(this).data('sortnum'));
       console.log("문항 ID : ", $(this).children('.item-box').find('#questionId').val());
       console.log("=========================")
     });
     console.log(passageList.toString());
     // console.log(passageList.length);  // 기본 30개
     
-    // 지문이 있는 경우, 지문 ID가 동일하면 동일한 sort-group으로 묶기
+    // 지문 ID가 동일하면 동일한 sort-group으로 묶기
     for (let i = 0; i < passageList.length; i++) {
-      if (passageList[i] > 0) {
-        // 지문 ID 중 최상단에 위치하는 그룹에 붙이기
-        let rootPassage = $('.sort-group').filter(function () {
-          return $(this).data('sortnum') === i;
-        });
-        
-        // 지문 ID가 중복되는 경우 찾기
-        for (let j = i + 1; j < passageList.length; j++) {
-          if (passageList[j] === passageList[i]) {
-            
-            let currentPassage = $('.sort-group').filter(function () {
-              return $(this).data('sortnum') == j;
-            });
-            
-            // 문항 영역을 최상단 sort-group 안으로 옮기고, 기존의 sort-group div는 삭제
-            let itemToGroup = currentPassage.children('.item-box');
-            itemToGroup.appendTo(rootPassage.children('.item-box').last());
-            currentPassage.remove();
-          }
+      // 지문 ID 중 최상단에 위치하는 그룹에 붙이기
+      let rootPassage = $('.sort-group').filter(function () {
+        return $(this).data('sortnum') == i;
+      });
+      console.log("root : ", passageList[i]);
+      console.log("rootPassage sortnum : ", rootPassage.data('sortnum'));
+      
+      // 지문 ID가 중복되는 경우 찾기
+      for (let j = i + 1; j < passageList.length; j++) {
+        if (passageList[j] === passageList[i]) {
+          
+          let currentPassage = $('.sort-group').filter(function () {
+            return $(this).data('sortnum') == j;
+          });
+          
+          console.log("current : ", passageList[j]);
+          console.log("currentPassage sortnum : ", currentPassage.data('sortnum'));
+          // let itemId = currentPassage.children('.item-box').find('#questionId').val();
+          // console.log("문항 Id : ", itemId);
+          
+          // 문항 영역을 최상단 sort-group 안으로 옮기고, 기존의 sort-group div는 삭제
+          let itemToGroup = currentPassage.children('.item-box');
+          itemToGroup.appendTo(rootPassage.children('.item-box').last());
+          currentPassage.remove();
         }
       }
-      
     }
+    
     setSortNum("detail");
     
-    // 문제지 요약 항목 정렬
+    // 초기 문제지 요약 항목 정렬
     $("#content-summary-area #table-1").empty();
     $("#view-que-detail-list .sort-group").each(function (i, e) {
       makeSummary($(e), $(e).attr("data-sortnum"), 'add');
     });
   }
   // e: 페이지 로드 시 지문+다중 문항 그룹 생성
+  
+  
   
   // 문항 타이틀 영역 - 난이도 뱃지에 색상 부여
   $(".view-que-box.item-box").each(function () {
@@ -80,43 +86,22 @@ $(function () {
   }
   
   // 탭 이동시
-  // $("#tab-right-group li").on("click", function () {
-  //   let tabType = $(this).index() + 1;
-  //
-  //   if (tabType === 2) {
-  //     $("#tab-box").removeClass("type03");
-  //     $("#tab-box").addClass("type02");
-  //   } else {
-  //     $("#tab-box").removeClass("type02");
-  //     $("#tab-box").addClass("type03");
-  //   }
-  //
-  //   $("#content-summary-area .col").removeClass("active");
-  //   $("#view-que-detail-list .view-que-box").removeClass("active");
-  //   $("#item-similar-area").empty();
-  //   $("#list-similar-area").css("display", "none");
-  //   $("#init-similar-area").css("display", "");
-  // });
-  
-  // 탭 이동시
   $("#tab-right-group li").on("click", function () {
-    let tabType = $(this).index()+1;
-    let readySimilar = $("#list-similar-area");
-    if(tabType === 2){
+    let tabType = $(this).index() + 1;
+    
+    if (tabType === 2) {
       $("#tab-box").removeClass("type03");
       $("#tab-box").addClass("type02");
-    }else{
+    } else {
       $("#tab-box").removeClass("type02");
       $("#tab-box").addClass("type03");
     }
     
     $("#content-summary-area .col").removeClass("active");
     $("#view-que-detail-list .view-que-box").removeClass("active");
-    //$("#item-similar-area").empty();
-    if (readySimilar != null){
-      $("#list-similar-area").css("display", "");
-      $("#init-similar-area").css("display", "none");
-    }
+    $("#item-similar-area").empty();
+    $("#list-similar-area").css("display", "none");
+    $("#init-similar-area").css("display", "");
   });
   
   // 문제+정답 함께 보기
@@ -353,14 +338,14 @@ $(function () {
                                             <input type="hidden" id="questionFormCode" value="${item.questionFormCode}">
                                         </div>
                                     </div>
-                                    <!--<div class="btn-wrap">
+                                    <div class="btn-wrap">
                                         <span class="tooltip-wrap type02">
                                             <button type="button" class="btn-error pop-btn" data-pop="error-report-pop"></button>
                                             <span class="tooltip type02">
                                                 <div class="tool-type01">문항오류신고</div>
                                             </span>
                                         </span>
-                                    </div>-->
+                                    </div>
                                 </div>
                                 <div class="view-que">
                                     <div class="que-content">
@@ -550,12 +535,12 @@ $(function () {
       makeSummary($(e), $(e).attr("data-sortnum"), 'delete');
     });
     
-    // 문제지 요약 active
-    if (!$("#content-summary-area").hasClass('on')) {
+    // 삭제 문항 active
+    if (!$("#contents-delete-area").hasClass('on')) {
       $(".contents").removeClass('on');
-      $("#content-summary-area").addClass('on');
+      $("#contents-delete-area").addClass('on');
       $("#tab-right-group .ui-tab-btn").removeClass('active');
-      $("#tab-summary").addClass('active');
+      $("#tab-delete").addClass('active');
     }
     
     // 삭제 문항 nodata 숨김 처리
