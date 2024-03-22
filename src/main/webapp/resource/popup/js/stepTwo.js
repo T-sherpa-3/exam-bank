@@ -1270,8 +1270,8 @@ function makeSummary(target, sortNum, type) {
                   <a href="javascript:;">
                     ${target.find(".item-box").length !== 1 ? '<span class="dragHandle ui-sortable-handle drag-type01"><img src="/resource/popup/img/ico_move_type02.png" alt=""></span>' : '<span></span>'}
                     <span class="summary-num">${$(this).find(".num").text()}</span>
-                    <span class="tit" title="${$(this).find(".chapter").text()}">
-                      <div class="txt">${$(this).find(".chapter").text()}</div>
+                    <span class="tit" title="${$(this).find("#chapterName").val()}">
+                      <div class="txt">${$(this).find("#chapterName").val()}</div>
                       <div class="tooltip-wrap">
                         ${$(this).attr("data-paperTitle") !== "" ? '<button type="button" class="btn-tip" style="position: relative; top: 1px; width: 14px; height: 16px; margin-left: 15px; background: url(https://testbank.tsherpa.co.kr/images/common/ico_btn_tip.png) no-repeat; background-size: contain; display: none"></button>' : ''}
                         ${$(this).attr("data-paperTitle") !== "" ? '<div class="tooltip type01"><div class="tool-type01">' + $(this).attr("data-paperTitle") + '</div></div>' : ''}
