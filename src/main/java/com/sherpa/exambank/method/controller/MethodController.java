@@ -1,18 +1,13 @@
 package com.sherpa.exambank.method.controller;
 
-import com.sherpa.exambank.method.domain.ExamGroupByLargeChapterResponse;
-import com.sherpa.exambank.method.domain.ExamList;
-import com.sherpa.exambank.method.domain.Step0ChapterResponse;
-import com.sherpa.exambank.method.domain.Step0ExamResponse;
+import com.sherpa.exambank.method.domain.*;
 import com.sherpa.exambank.method.service.MethodService;
+import com.sherpa.exambank.outapi.resonse.ResponseSeven;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-@RequestMapping("/customExam")
+@RequestMapping("/exambank/customExam")
 public class MethodController {
 
     private final MethodService methodService;
@@ -43,7 +38,7 @@ public class MethodController {
         ArrayList<ExamGroupByLargeChapterResponse> examListResponse = methodService.findSettingListBySubjectId(subjectId);
         model.addAttribute("examListResponse",examListResponse);
 
-
         return "customexam/step0";
     }
+
 }

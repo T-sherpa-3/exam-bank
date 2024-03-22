@@ -27,55 +27,19 @@
     <script>
 
         function moveToStep1() {
-            alert('re');
             let new_form = $('<form></form>');
-            new_form.attr("name", "subject");
+            new_form.attr("name", "Subject");
             new_form.attr("charset", "UTF-8");
             new_form.attr("method", "post");
             new_form.attr("action", "/customExam/step1");
 
             new_form.append($('<input/>', {type: 'hidden', name: 'subjectId', value: $("#subjectId").val()}));
-            new_form.append($('<input/>', {type: 'hidden', name: 'subjectName', value: $("#subjectId").val()+"-2015"}));
+            new_form.append($('<input/>', {type: 'hidden', name: 'subjectName', value: $("#subjectName").text()}));
+            new_form.append($('<input/>', {type: 'hidden', name: 'curriculumName', value: $("#curriculumName").text()}));
 
             new_form.appendTo('body');
             new_form.submit();
         }
-
-        // $.ajax({
-        //     url: "https://sso.chunjae.co.kr:446/api/auth/Validation",
-        //     data: { sessionData: "Z9oqux5Fi7d3oS6IczOqyHSFFD1PiwlXPTooBC4wOcQ2XpNH0F4AnzRFqwyBiK153xt/Fq8tuswyTSm1YqIsYw==" },
-        //     dataType: 'json',
-        //     cache : false,
-        //     success: function (data) {
-        //         if (data && data.Result) {
-        //             let Items = data.Result.Items;
-        //             $.ajax({
-        //                 url: "https://sso.chunjae.co.kr:446/api/auth/Authorize?Token=" + Items.Token,
-        //                 dataType: 'text',
-        //                 xhrFields: {
-        //                     withCredentials: true
-        //                 },
-        //                 cache : false,
-        //                 success: function (data) {
-        //                     let reg = /_ChunjaeSSOEncData = '(.*)';/
-        //                     let ssoData = reg.exec(data)[1];
-        //                     if (ssoData) {
-        //                         $.ajax({
-        //                             url: "/user/ssoLogin",
-        //                             data: {
-        //                                 ssoData: ssoData
-        //                             },
-        //                             type: "post",
-        //                             success: function (res) {}
-        //                         })
-        //                     } else {
-        //                         location.href="/user/ssoLogout";
-        //                     }
-        //                 }
-        //             });
-        //         }
-        //     }
-        // });
     </script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -552,8 +516,8 @@
 
                         <span></span>
                         <input type="hidden" id="subjectId" name="subjectId" value="${subjectId}">
-                        <span class="subject">${subjectName}</span>
-                        <span>${curriculumName}</span>
+                        <span id="subjectName" class="subject">${subjectName}</span>
+                        <span id="curriculumName">${curriculumName}</span>
                         <span class="number">
 								    <span class="tooltip-wrap">
 									<button class="tip-btn blue" id="chk_item_cnt">0</button>
@@ -601,18 +565,18 @@
                                                 <span>${examInfo.itemCnt}</span>
                                                 <span><button type="button" class="btn-icon2 preview-btn"><i class="preview"></i></button></span>
                                                 <span>
-                                                                        <div class="btn-wrap">
-                                                                            <div class="tooltip-wrap type01">
-                                                                                <button type="button" class="btn-default download-btn" data-type="A">전체</button>
-                                                                                <div class="tooltip type03">
-                                                                                    <div class="tool-type01">문제+정답+해설</div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <button type="button" class="btn-default download-btn" data-type="Q">문제</button>
-                                                                            <button type="button" class="btn-default download-btn" data-type="E">정답+해설</button>
-                                                                            <button type="button" class="btn-default download-btn" data-type="C">문항정보표</button>
-                                                                        </div>
-                                                                    </span>
+                                                    <div class="btn-wrap">
+                                                        <div class="tooltip-wrap type01">
+                                                            <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="A">전체</button>
+                                                            <div class="tooltip type03">
+                                                                <div class="tool-type01">문제+정답+해설</div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="Q">문제</button>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="E">정답+해설</button>
+                                                        <button type="button" class="btn-default download-btn" exam-id="${examInfo.examId}" data-type="C">문항정보표</button>
+                                                    </div>
+                                                </span>
                                                 <input type="hidden" class="paperId" value="${examInfo.examId}">
                                                 <input type="hidden" class="paperTitle" value="${examInfo.examName}">
                                                 <input type="hidden" class="itemCnt" value="${examInfo.itemCnt}">
@@ -645,7 +609,7 @@
     <div class="pop-inner">
         <div class="pop-header">
             <div class="tit-top">
-                <span id="preview_tit"></span>
+                <span id="preview_tit">[시험지명]</span>
                 <em id="preview_cnt"></em>
                 <input type="hidden" id="preview_paperId">
             </div>
@@ -655,7 +619,7 @@
             <div class="tab-wrap">
                 <ul class="tab-menu-type02" id="preview-tab">
                     <li class="active">
-                        <a href="javascript:;" data-type="A">문제 + 정답 + 해설</a>
+                        <a href="javascript:" data-type="A">문제 + 정답 + 해설</a>
                     </li>
                     <li class="">
                         <a href="javascript:;" data-type="Q">문제</a>
@@ -725,6 +689,47 @@
         </div> -->
     </div>
 </div>
+<script>
+    $(".download-btn").on('click',function (){
+        let examName = $(".paperTitle").attr("value");
+        let examId = $(this).attr("exam-id");
+        let dataType = $(this).attr("data-type");
+
+        const data = {
+            "examId": examId,
+            "dataType": dataType
+        }
+
+        // 시험지 id에 따른 itemlist 요청
+        $.ajax({
+            type : 'post',           // 타입 (get, post, put 등등)
+            url : '/exambank/customExamAPI/getSettingItemList', // 요청할 서버 url
+            async : true,            // 비동기화 여부 (default : true)
+            dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+            contentType: 'application/json',
+            data :  JSON.stringify(data),
+            success : function(result) { // 결과 성공 콜백함수
+                console.log(result.itemList);
+                renderImg(examName,result.itemList);
+
+            },
+            error : function(request, status, error) { // 결과 에러 콜백함수
+                console.log(error)
+            }
+        });
+        alert("test");
+
+    });
+
+
+    /* 미리보기 버튼 클릭시 */
+    $(".preview-btn").on('click',function (){
+        $(".dim").show();
+        $("#q-preview").show();
+
+    });
+</script>
 
 </body>
 </html>
+<%@ include file="makeExamPaper.jsp"%>

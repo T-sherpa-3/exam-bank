@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace='com.sherpa.exambank.method.mapper.ItemMapper'>
 
-    <select id="getAllBoardList" resultType="com.sherpa.exambank.sample.domain.BoardDTO">
-        select * from board_table
-    </select>
+<!--    <select id="getAllBoardList" resultType="com.sherpa.exambank.sample.domain.BoardDTO">-->
+<!--        select * from board_table-->
+<!--    </select>-->
 
 
 

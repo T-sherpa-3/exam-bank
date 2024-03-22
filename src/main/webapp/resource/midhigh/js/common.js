@@ -25,15 +25,11 @@ const ajaxCall = (type, url, param, callback) => {
         data : param,
         contentType: "application/json",
         success: function (data) {
-            console.log("호출 ", data);
+            console.log("ajaxCall 호출");
             return callback(data);
         },
         error : function (xhr, status, error) {
-            console.log("xhr ", xhr);
-            console.log("status ", status);
-            console.log("error ", error);
-            alert("jy");
-            // window.location.href="/error/error";
+            window.location.href="/error/error";
         }
     });
 }

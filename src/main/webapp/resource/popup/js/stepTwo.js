@@ -45,7 +45,6 @@ $(function () {
           }
         }
       }
-      
     }
     setSortNum("detail");
     
@@ -59,6 +58,8 @@ $(function () {
   
   // 문항 타이틀 영역 - 난이도 뱃지에 색상 부여
   $(".view-que-box.item-box").each(function () {
+    $(this).find("#difficultyColor").removeClass();
+    $(this).find("#difficultyColor").addClass('que-badge');
     $(this).find("#difficultyColor").addClass(getColorClass(
       $(this).find("#difficultyCode").val()
     ));
@@ -78,25 +79,6 @@ $(function () {
     $("#select-sort-btn").text("사용자 정렬");
     setPassageNum($("#view-que-detail-list .passage-box"));
   }
-  
-  // 탭 이동시
-  // $("#tab-right-group li").on("click", function () {
-  //   let tabType = $(this).index() + 1;
-  //
-  //   if (tabType === 2) {
-  //     $("#tab-box").removeClass("type03");
-  //     $("#tab-box").addClass("type02");
-  //   } else {
-  //     $("#tab-box").removeClass("type02");
-  //     $("#tab-box").addClass("type03");
-  //   }
-  //
-  //   $("#content-summary-area .col").removeClass("active");
-  //   $("#view-que-detail-list .view-que-box").removeClass("active");
-  //   $("#item-similar-area").empty();
-  //   $("#list-similar-area").css("display", "none");
-  //   $("#init-similar-area").css("display", "");
-  // });
   
   // 탭 이동시
   $("#tab-right-group li").on("click", function () {
@@ -526,6 +508,8 @@ $(function () {
     if (btnType === "all") {
       // 전체 삭제는 문항 그룹 전체를 넘김
       convertItem(btnType, questionGroup, selectedPassageBox, "item-delete-area");
+      $("#item-delete-area").find('.btn-default.btn-add[data-type=all]').parent().css('display', 'block');
+      // $("#item-delete-area").find('.btn-default.btn-add[data-type=all]').show();
       questionGroup.remove();
       
     } else {
@@ -550,12 +534,12 @@ $(function () {
       makeSummary($(e), $(e).attr("data-sortnum"), 'delete');
     });
     
-    // 문제지 요약 active
-    if (!$("#content-summary-area").hasClass('on')) {
+    // 삭제 문항 active
+    if (!$("#contents-delete-area").hasClass('on')) {
       $(".contents").removeClass('on');
-      $("#content-summary-area").addClass('on');
+      $("#contents-delete-area").addClass('on');
       $("#tab-right-group .ui-tab-btn").removeClass('active');
-      $("#tab-summary").addClass('active');
+      $("#tab-delete").addClass('active');
     }
     
     // 삭제 문항 nodata 숨김 처리
@@ -1287,8 +1271,8 @@ function makeSummary(target, sortNum, type) {
                   <a href="javascript:;">
                     ${target.find(".item-box").length !== 1 ? '<span class="dragHandle ui-sortable-handle drag-type01"><img src="/resource/popup/img/ico_move_type02.png" alt=""></span>' : '<span></span>'}
                     <span class="summary-num">${$(this).find(".num").text()}</span>
-                    <span class="tit" title="${$(this).find(".chapter").text()}">
-                      <div class="txt">${$(this).find(".chapter").text()}</div>
+                    <span class="tit" title="${$(this).find("#chapterName").val()}">
+                      <div class="txt">${$(this).find("#chapterName").val()}</div>
                       <div class="tooltip-wrap">
                         ${$(this).attr("data-paperTitle") !== "" ? '<button type="button" class="btn-tip" style="position: relative; top: 1px; width: 14px; height: 16px; margin-left: 15px; background: url(https://testbank.tsherpa.co.kr/images/common/ico_btn_tip.png) no-repeat; background-size: contain; display: none"></button>' : ''}
                         ${$(this).attr("data-paperTitle") !== "" ? '<div class="tooltip type01"><div class="tool-type01">' + $(this).attr("data-paperTitle") + '</div></div>' : ''}
@@ -1314,7 +1298,7 @@ function makeSummary(target, sortNum, type) {
                     <span class="tit" title="${target.find(".chapter").text()}">
                         <div class="txt">${target.find(".chapter").text()}</div>
                         <div class="tooltip-wrap">
-                            ${target.find(".item-box").attr("data-paperTitle") !== "" ? '<button type="button" class="btn-tip" style="position: relative; top: 1px; width: 14px; height: 16px; margin-left: 15px; background: url(../../images/common/ico_btn_tip.png) no-repeat; background-size: contain;"></button>' : ''}
+                            ${target.find(".item-box").attr("data-paperTitle") !== "" ? '<button type="button" class="btn-tip" style="position: relative; top: 1px; width: 14px; height: 16px; margin-left: 15px; background: url(https://testbank.tsherpa.co.kr/images/common/ico_btn_tip.png) no-repeat; background-size: contain;"></button>' : ''}
                             ${target.find(".item-box").attr("data-paperTitle") !== "" ? '<div class="tooltip type01"><div class="tool-type01">' + target.find(".item-box").attr("data-paperTitle") + '</div></div>' : ''}
                         </div>
                     </span>

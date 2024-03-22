@@ -13,7 +13,12 @@ public class SampleController {
 
     private final SampleService sampleService;
 
-    @RequestMapping("/")
+    @RequestMapping({"","/"})
+    public String mainPage(){
+        return "redirect:/exambank/booklist";
+    }
+
+    @RequestMapping("/sample")
     public String sampleHome(){
         return "sample";
     }
@@ -41,6 +46,11 @@ public class SampleController {
     @RequestMapping("/customExam/complete")
     public String completePage(){
         return "customexam/complete";
+    }
+
+    @RequestMapping("/customExam/pdftest")
+    public String pdfTestPage(){
+        return "TestDirectory/Test2";
     }
 
 }

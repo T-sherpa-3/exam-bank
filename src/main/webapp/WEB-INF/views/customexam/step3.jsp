@@ -113,39 +113,59 @@
                         <div class="left-wrap">
                             <span class="tit">난이도</span>
                             <div class="que-badge-group">
-                                <div class="que-badge-wrap" style="display: none">
-                                    <span class="que-badge oceanblue">최하</span>
-                                    <span class="num"></span>
-                                </div>
-                                <div class="que-badge-wrap" style="display: none">
-                                    <span class="que-badge purple">하</span>
-                                    <span class="num"></span>
-                                </div>
-                                <div class="que-badge-wrap" style="">
-                                    <span class="que-badge green">중</span>
-                                    <span class="num">15</span>
-                                </div>
-                                <div class="que-badge-wrap" style="">
-                                    <span class="que-badge yellow">상</span>
-                                    <span class="num">15</span>
-                                </div>
-                                <div class="que-badge-wrap" style="display: none">
-                                    <span class="que-badge pink">최상</span>
-                                    <span class="num"></span>
-                                </div>
+<%--                                <div class="que-badge-wrap">--%>
+<%--                                    <span class="que-badge purple">하</span>--%>
+<%--                                    <span class="num">10</span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap">--%>
+<%--                                    <span class="que-badge green">중</span>--%>
+<%--                                    <span class="num">10</span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap">--%>
+<%--                                    <span class="que-badge yellow">상</span>--%>
+<%--                                    <span class="num">10</span>--%>
+<%--                                </div>--%>
+
+<%--                                <c:forEach var="item" items="${itemIdList}">--%>
+                                    <div class="que-badge-group" id="difficultyBadges">
+<%--                                        <input type="hidden" name="" value="${itemIdList.difficultyCode}">--%>
+<%--                                        <span class="que-badge oceanblue">${itemIdList.difficultyName}</span>--%>
+<%--                                        <span class="num"></span>--%>
+                                    </div>
+<%--                                </c:forEach>--%>
+<%--                                <div class="que-badge-wrap" style="display: none">--%>
+<%--                                    <span class="que-badge oceanblue">최하</span>--%>
+<%--                                    <span class="num"></span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap" style="display: none">--%>
+<%--                                    <span class="que-badge purple">하</span>--%>
+<%--                                    <span class="num"></span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap" style="">--%>
+<%--                                    <span class="que-badge green">중</span>--%>
+<%--                                    <span class="num">15</span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap" style="">--%>
+<%--                                    <span class="que-badge yellow">상</span>--%>
+<%--                                    <span class="num">15</span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap" style="display: none">--%>
+<%--                                    <span class="que-badge pink">최상</span>--%>
+<%--                                    <span class="num"></span>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                         <div class="right-wrap">
                             <span class="tit">문제 형태</span>
-                            <div class="que-badge-group">
-                                <div class="que-badge-wrap" style="">
-                                    <span class="que-badge gray">객관식</span>
-                                    <span class="num">25</span>
-                                </div>
-                                <div class="que-badge-wrap" style="">
-                                    <span class="que-badge gray">주관식</span>
-                                    <span class="num">5</span>
-                                </div>
+                            <div class="que-badge-group2">
+<%--                                <div class="que-badge-wrap2" style="">--%>
+<%--                                    <span class="que-badge gray">객관식</span>--%>
+<%--                                    <span class="num">25</span>--%>
+<%--                                </div>--%>
+<%--                                <div class="que-badge-wrap2" style="">--%>
+<%--                                    <span class="que-badge gray">주관식</span>--%>
+<%--                                    <span class="num">5</span>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -159,368 +179,15 @@
                                 <span>난이도</span>
                             </div>
                             <div class="tbody">
-                                <div class="scroll-inner">
-
-                                    <div class="col">
-                                        <span>1</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;1. 섞인 것과 섞이지 않은 것&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>2</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;2. 물질에 따라 끓는점, 녹는점, 어는점이 달라!&nbsp;</span>
-                                        <span>
-
-
-                                                             주관식
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>3</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;2. 물질에 따라 끓는점, 녹는점, 어는점이 달라!&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>4</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;2. 물질에 따라 끓는점, 녹는점, 어는점이 달라!&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>5</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;3. 물질에 따라 밀도가 달라!&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>6</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;3. 물질에 따라 밀도가 달라!&nbsp;</span>
-                                        <span>
-
-
-                                                             주관식
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>7</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;4. 물질에 따라 용해도가 달라!&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>8</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;1. 물질의 특성&nbsp;&gt;&nbsp;4. 물질에 따라 용해도가 달라!&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>9</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;1. 끓는점 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>10</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;1. 끓는점 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>11</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;1. 끓는점 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>12</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;1. 끓는점 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>13</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;1. 끓는점 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-
-                                                             주관식
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>14</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;2. 밀도 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>15</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;2. 밀도 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>16</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;2. 밀도 차를 이용한 분리&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>17</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;3. 재결정과 크로마토그래피&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>18</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;3. 재결정과 크로마토그래피&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>19</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;3. 재결정과 크로마토그래피&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>20</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;3. 재결정과 크로마토그래피&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>21</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;3. 재결정과 크로마토그래피&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>22</span>
-                                        <span class="tit">6. 물질의 특성&nbsp;&gt;&nbsp;2. 혼합물의 분리&nbsp;&gt;&nbsp;[실험] 혼합물 분리하기&nbsp;</span>
-                                        <span>
-
-
-                                                             주관식
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>23</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;1. 온도와 열&nbsp;&gt;&nbsp;1. 열을 얻은 물체에 생기는 변화&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>24</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;1. 온도와 열&nbsp;&gt;&nbsp;1. 열을 얻은 물체에 생기는 변화&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>25</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;1. 온도와 열&nbsp;&gt;&nbsp;2. 열이 들락날락&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>26</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;1. 온도와 열&nbsp;&gt;&nbsp;2. 열이 들락날락&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>27</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;2. 비열과 열팽창&nbsp;&gt;&nbsp;1. 누가 먼저 뜨거워질까?&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>중</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>28</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;2. 비열과 열팽창&nbsp;&gt;&nbsp;1. 누가 먼저 뜨거워질까?&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>29</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;2. 비열과 열팽창&nbsp;&gt;&nbsp;2. 열 받으면 팽창한다&nbsp;</span>
-                                        <span>
-
-                                                            객관식
-
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span>30</span>
-                                        <span class="tit">8. 열과 우리 생활&nbsp;&gt;&nbsp;2. 비열과 열팽창&nbsp;&gt;&nbsp;2. 열 받으면 팽창한다&nbsp;</span>
-                                        <span>
-
-
-                                                             주관식
-
-                                                    </span>
-                                        <span>상</span>
-                                    </div>
-
+                                <div class="scroll-inner" id="responseContainer">
+<%--                                    <c:forEach var="item" items="${itemIdList}">--%>
+<%--                                        <div class="col">--%>
+<%--                                            <span>${item.itemId}</span>--%>
+<%--                                            <span class="tit">${item.largeChapterName} &gt; ${item.mediumChapterName} &gt; ${item.smallChapterName}</span>--%>
+<%--                                            <span>${item.questionFormName}</span>--%>
+<%--                                            <span>${item.difficultyName}</span>--%>
+<%--                                        </div>--%>
+<%--                                    </c:forEach>--%>
                                 </div>
                             </div>
                         </div>
@@ -606,50 +273,30 @@
             }
 
             if (confirm ('시험지를 저장하시겠습니까?')) {
-                let _textName = '과학2(노태희)'+'-'+'2015개정 교육과정';
-
-                qParam = {};
-                qParam.queArr = '1664792,1506466,1664793,1506463,1664798,1664808,1664799,1665537,1665552,1506450,1665539,1665541,1664830,1506453,1665544,1665543,1506454,1664825,1665547,1665546,1665548,1506438,1506589,1506588,1506591,1664899,1664915,1664918,1506604,1506561';
-                qParam.paperTitle = encodeURIComponent($("#paperTitle").val());
-                qParam.paperGubun = 'new';
-                qParam.subjectId = '1175';
-                qParam.textName = _textName;
-                qParam.areaCode = 'SC';
-                qParam.areaName = '과학';
-
-                // 지원 퍼블 테스트 [*****]
-                window.location = "/customExam/complete";
+                // dto로 넘어가는 필드
+                let requestData = {
+                    paperTitle: $("#paperTitle").val(), // 시험지명
+                    itemIdList: ${itemIdList}, // 문항 ID 리스트
+                    subjectName: ${subjectName}
+                };
 
                 $.ajax({
-                    url: "/customExam/saveStep3",
+                    url: "/customExam/saveExamData",
                     type: "POST",
-                    data: qParam,
+                    contentType: "application/json",
+                    data: JSON.stringify(requestData),
                     success: function(data) {
-                        if(data == null || data.successYn === 'N') {
-                            alert("관리자에게 문의해 주시기 바랍니다.");
-
-                        }else if(data.successYn === 'Y') {
-
-                            let _form = $('<form></form>');
-                            _form.attr("name", "new_form");
-                            _form.attr("charset", "UTF-8");
-                            _form.attr("method", "post");
-                            _form.attr("action", "/customExam/complete");
-
-                            _form.append($('<input/>', {type: 'hidden', name: 'paperGubun', value:'new'}));
-                            _form.append($('<input/>', {type: 'hidden', name: 'subjectId', value: '1175'}));
-
-                            _form.appendTo('body');
-                            _form.submit();
-                        }/*else if(data.successYn === 'F'){
-                                    location.href = "/errorSession";
-                                }*/
+                        if(data && data.success) {
+                            alert("시험지가 성공적으로 저장되었습니다.");
+                        } else {
+                            alert("시험지 저장에 실패했습니다.");
+                        }
                     },
                     beforeSend: function() {
                         $(".loading-cnt").css('display', 'block');
                     },
                     error: function(request, status, error) {
-                        alert("저장 실패")
+                        alert("시험지 저장 중 오류가 발생했습니다.");
                     },
                     complete: function() {
                         $(".loading-cnt").css('display', 'none');
@@ -685,6 +332,213 @@
     }
 
 </script>
+<%--<script>--%>
+<%--    $(document).ready(function () {--%>
+<%--        // 서버에서 전달된 qParam 데이터--%>
+<%--        let qParam ={};--%>
 
+<%--        // 재검색--%>
+<%--        function rescan(){--%>
+<%--            qParam = {};--%>
+<%--            const chapterList = '${itemDTOList}';--%>
+<%--            console.log("chapterList : "+chapterList);--%>
+<%--            const activityCategoryList = '415,416,417,418'.split(',');--%>
+<%--            const levelCnt = '0,10,10,10,0'.split(',');--%>
+<%--            const questionForm =  'multiple,subjective,descriptive';--%>
+
+<%--            let plusTempLevelArray = [];--%>
+<%--            for (let i = 0; i < levelCnt.length; i++) {--%>
+<%--                let cnt = Number(levelCnt[i]);--%>
+<%--                let pVal = cnt === 0? 0: cnt+20;--%>
+<%--                plusTempLevelArray.push(pVal);--%>
+<%--            }--%>
+
+<%--            qParam.chapterList = chapterList;--%>
+<%--            qParam.activityCategoryList = activityCategoryList;--%>
+<%--            qParam.levelCnt = levelCnt;--%>
+<%--            qParam.tmpLevelCnt = plusTempLevelArray;--%>
+<%--            qParam.questionForm = questionForm;--%>
+
+<%--            ajaxCall("POST", "/customexam/step3", qParam, function (data) {--%>
+
+<%--                if (data != null) {--%>
+<%--                    for(let j=1; j<=5; j++){--%>
+<%--                        if (data.levelGroup['0'+j] !== undefined) {--%>
+<%--                            $(".pop-wrap[data-pop='que-pop'] #pop-level"+j).show();--%>
+<%--                            $(".pop-wrap[data-pop='que-pop'] #pop-level"+j).find(".num").text(data.levelGroup['0'+j]);--%>
+<%--                        }--%>
+<%--                    }--%>
+
+<%--                    $(".pop-wrap[data-pop='que-pop'] #pop-total-sum .num").text(data.itemsTotalCnt);--%>
+<%--                    $(".pop-wrap[data-pop='que-pop'] #nxt-data").val(data.queIdList);--%>
+
+<%--                    showPop("que-pop");--%>
+<%--                }--%>
+<%--            });--%>
+<%--        }--%>
+
+<%--        //재구성된 문항으로 가져오기--%>
+<%--        function moveToStep3() {--%>
+<%--            let queArrParam = $(".pop-wrap #nxt-data").val();--%>
+<%--            let new_form = $('<form></form>');--%>
+
+<%--            new_form.attr("name", "new_form");--%>
+<%--            new_form.attr("charset", "UTF-8");--%>
+<%--            new_form.attr("method", "post");--%>
+<%--            new_form.attr("action", "/customExam/step2");--%>
+
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'chapterList', value:  qParam.chapterList}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'activityCategoryList', value: qParam.activityCategoryList}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'levelCnt', value: qParam.levelCnt}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'questionForm', value: qParam.questionForm}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'queArr', value: queArrParam}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'paperGubun', value: 'new'}));--%>
+<%--            new_form.append($('<input/>', {type: 'hidden', name: 'subjectId', value: $("#subjectId").val()}));--%>
+
+<%--            new_form.appendTo('body');--%>
+<%--            new_form.submit();--%>
+<%--        }--%>
+<%--    });--%>
+<%--</script>--%>
+<script>
+
+            let requestData = {
+                "itemIdList": ${itemIdList}
+                //"itemIdList": [1664792,1506466,1664793,1506463,1664798,1664808,1664799,1665537,1665552,1506450,1665539,1665541,1664830,1506453,1665544,1665543,1506454,1664825,1665547,1665546,1665548,1506438,1506589,1506588,1506591,1664899,1664915,1664918,1506604,1506561]
+        };
+
+            $(document).ready(function () {
+            $.ajax({
+                url: '/customExam/rangeList', // 요청할 URL
+                type: 'POST', // 요청 방식
+            contentType: 'application/json', // 요청 데이터의 타입
+            data: JSON.stringify(requestData), // 요청 데이터
+            success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수
+                let responseHtml = ''; // HTML 문자열 변수 초기화
+
+                // 응답 데이터가 배열 형태인지 확인 후 처리
+                if (Array.isArray(response.itemList)) {
+                    let difficultyCounts = {
+                        '하': 0,
+                        '중': 0,
+                        '상': 0
+                    };
+
+                    response.itemList.forEach(function(item) { // 응답 데이터를 순회하며 HTML 문자열 생성
+                        let difficultyName = item.difficultyName;
+                        difficultyCounts[difficultyName]++;
+                    });
+
+                    // 각 난이도 별로 HTML 요소 생성
+                    Object.keys(difficultyCounts).forEach(function(difficultyName) {
+                        var count = difficultyCounts[difficultyName];
+                        responseHtml += '<div class="que-badge-wrap">';
+                        responseHtml += '<span class="que-badge ' + getBadgeColor(difficultyName) + '">' + difficultyName + '</span>';
+                        responseHtml += '<span class="num">' + count + '</span>';
+                        responseHtml += '</div>';
+                    });
+                } else {
+                    // 응답 데이터가 배열 형태가 아닌 경우, 적절한 처리를 수행하도록 수정
+                    console.error('서버 응답 형식이 올바르지 않습니다.');
+                }
+
+                // 생성된 HTML을 원하는 위치에 추가
+                $('#difficultyBadges').html(responseHtml);
+            },
+            error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수
+                console.error('API 요청이 실패했습니다.');
+            }
+        });
+    });
+
+    // 난이도 별로 적절한 색상 클래스를 반환하는 함수
+    function getBadgeColor(difficultyName) {
+        switch (difficultyName) {
+            case '하':
+                return 'purple';
+            case '중':
+                return 'green';
+            case '상':
+                return 'yellow';
+            default:
+                return 'oceanblue';
+        }
+    }
+
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/customExam/rangeList', // 요청할 URL
+                    type: 'POST', // 요청 방식
+                    contentType: 'application/json', // 요청 데이터의 타입
+                    data: JSON.stringify(requestData), // 요청 데이터
+                    success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수
+                        let responseHtml = ''; // HTML 문자열 변수 초기화
+                        let index = 1; // 아이템 ID의 시작 값
+                        let objectiveCount = 0; // 객관식 개수 초기화
+                        let subjectiveCount = 0; // 주관식 개수 초기화
+
+                        // 응답 데이터가 배열 형태인지 확인 후 처리
+                        if (Array.isArray(response.itemList)) {
+                            response.itemList.forEach(function(item) { // 응답 데이터를 순회하며 HTML 문자열 생성
+                                let questionType = ''; // 질문 유형 초기화
+                                // 질문 유형에 따라 처리
+                                switch(item.questionFormName) {
+                                    case '5지 선택':
+                                    case '자유 선지형':
+                                        questionType = '객관식';
+                                        objectiveCount++; // 객관식 개수 증가
+                                        break;
+                                    case '단답 유순형':
+                                    case '서술형':
+                                        questionType = '주관식';
+                                        subjectiveCount++; // 주관식 개수 증가
+                                        break;
+                                    default:
+                                        questionType = ''; // 기타 유형에 대해서는 처리하지 않음
+                                        break;
+                                }
+                                responseHtml += '<div class="col">';
+                                responseHtml += '<span>' + index + '</span>'; // 아이템 ID 출력
+                                responseHtml += '<span class="tit">' + item.largeChapterName + ' &gt; ' + item.mediumChapterName + ' &gt; ' + item.smallChapterName + '</span>';
+                                responseHtml += '<span>' + questionType + '</span>'; // 질문 유형 추가
+                                responseHtml += '<span>' + item.difficultyName + '</span>';
+                                responseHtml += '</div>';
+                                index++; // 아이템 ID 증가
+                            });
+                        } else {
+                            // 응답 데이터가 배열 형태가 아닌 경우, 적절한 처리를 수행하도록 수정
+                            console.error('서버 응답 형식이 올바르지 않습니다.');
+                        }
+
+                        // 객관식과 주관식 개수를 포함하는 HTML을 생성
+                        let objectiveHtml = '<div class="que-badge-wrap"><span class="que-badge gray">객관식</span><span class="num">' + objectiveCount + '</span></div>';
+                        let subjectiveHtml = '<div class="que-badge-wrap"><span class="que-badge gray">주관식</span><span class="num">' + subjectiveCount + '</span></div>';
+
+                        // 생성된 HTML을 원하는 위치에 추가
+                        $('.que-badge-group2').html(objectiveHtml + subjectiveHtml);
+                        $('#responseContainer').html(responseHtml); // 생성된 HTML을 #responseContainer 요소에 추가
+                    },
+                    error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수
+                        console.error('API 요청이 실패했습니다.');
+                    }
+                });
+            });
+</script>
+<script>
+    let qParam ={};
+
+    $(document).ready(function () {
+        let new_form = $('#new_form');
+
+        // 폼 데이터 추가
+        new_form.append($('<input/>', {type: 'hidden', name: 'chapterList', value: qParam.chapterList}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'activityCategoryList', value: qParam.activityCategoryList}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'levelCnt', value: qParam.levelCnt}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'questionForm', value: qParam.questionForm}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'queArr', value: qParam.queArr}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'paperGubun', value: 'new'}));
+        new_form.append($('<input/>', {type: 'hidden', name: 'subjectId', value: $("#subjectId").val()}));
+    });
+</script>
 </body>
 </html>

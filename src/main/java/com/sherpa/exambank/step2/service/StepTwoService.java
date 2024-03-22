@@ -15,8 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -330,10 +329,28 @@ public class StepTwoService {
         ObjectMapper objectMapper = new ObjectMapper();
         ItemDTO[] itemDTOArray = objectMapper.readValue(jsonData, ItemDTO[].class);
 
-        // 넘어온 문제에 대해서 조건에 맞는 문제 수를 반환
-        /*for (int i = 0; itemDTOArray.length < 90; i++){
+        // 넘어온 문제에 대해서 {passageId,[itemId]} 이런 형태로 보내주기
+        // JSON 데이터를 List<Map<String, Object>>으로 역직렬화
+        List<Map<String, Object>> itemList = objectMapper.readValue(jsonData, List.class);
 
-        }*/
+        // passageId를 키로 하고 해당 passageId에 속하는 itemId들을 배열로 값으로 가지는 맵 생성
+        Map<Integer, List<Integer>> passageIdMap = new HashMap<>();
+        for (Map<String, Object> item : itemList) {
+            int itemId = (int) item.get("itemId");
+            int passageId = (int) item.get("passageId");
+
+            // 해당 passageId에 속하는 itemId들을 배열로 가지는 리스트를 생성하거나 기존 리스트를 가져옴
+            List<Integer> itemIdList = passageIdMap.getOrDefault(passageId, new ArrayList<>());
+            itemIdList.add(itemId);
+
+            // 맵에 업데이트
+            passageIdMap.put(passageId, itemIdList);
+        }
+
+        // 결과 출력
+        for (Map.Entry<Integer, List<Integer>> entry : passageIdMap.entrySet()) {
+            log.info("Passage ID: " + entry.getKey() + ", Item IDs: " + entry.getValue());
+        }
 
         return Arrays.asList(itemDTOArray);
     }

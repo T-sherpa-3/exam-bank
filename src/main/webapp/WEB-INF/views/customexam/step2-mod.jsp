@@ -133,7 +133,7 @@
                  id="view-que-detail-list">
 
               <%--                            <c:out value="${itemDTOList}"/>--%>
-              <c:forEach items="${itemDTOList}" var="dto" varStatus="status">
+
                 <c:choose>
                   <c:when test="${empty itemDTOList}">
                     <div class="view-que-list no-data" id="no-data-detail-area"
@@ -141,7 +141,9 @@
                       <p>문항이 없습니다.</p>
                     </div>
                   </c:when>
+
                   <c:otherwise>
+                    <c:forEach items="${step2Response.itemList}" var="dto" varStatus="status">
                     <%--지문+문항--%>
                     <%-- 지문 영역 --%>
                     <c:if test="${dto.passageId != null}">
@@ -298,9 +300,10 @@
                         </div>
                       </div>
                     </c:if>
+                    </c:forEach>
                   </c:otherwise>
                 </c:choose>
-              </c:forEach>
+
 
               <%-- 문항 리스트 - 지문이 있는 경우 --%>
               <div class="passage-view-que-box sort-group">
@@ -2659,22 +2662,22 @@
                 </div>
                 <div class="que-badge-wrap" id="badge-level-2" style="">
                   <span class="que-badge purple">하</span>
-                  <span class="num" id="level-2">2</span>
+                  <span class="num" id="level-2">${step2Response.levelGroup.get("02")}</span>
                 </div>
                 <div class="que-badge-wrap" id="badge-level-3" style="">
                   <span class="que-badge green">중</span>
-                  <span class="num" id="level-3">21</span>
+                  <span class="num" id="level-3">${step2Response.levelGroup.get("03")}</span>
                 </div>
                 <div class="que-badge-wrap" id="badge-level-4" style="">
                   <span class="que-badge yellow">상</span>
-                  <span class="num" id="level-4">7</span>
+                  <span class="num" id="level-4">${step2Response.levelGroup.get("04")}</span>
                 </div>
                 <div class="que-badge-wrap" id="badge-level-5" style="display: none">
                   <span class="que-badge pink">최상</span>
                   <span class="num" id="level-5"></span>
                 </div>
               </div>
-              <p class="total-num">총 <span></span>문제</p>
+              <p class="total-num">총 <span>${step2Response.itemsTotalCnt.toString()}</span>문제</p>
             </div>
           </div>
 

@@ -1,0 +1,70 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<html>
+<head>
+    <title>Title</title>
+    <style>
+        .multi-layout {
+            width: 595px; /* 전체 너비를 사용하도록 설정 */
+            height: 842px;
+            column-count: 2;
+            column-rule-color: lightgrey;
+            column-rule-style: dotted;
+            column-width: auto; /* 열의 너비를 자동으로 조절 */
+            overflow: auto;
+        }
+        .multi-layout .column {
+            text-align: center; /* 각 단의 내용을 가운데 정렬 */
+        }
+        .multi-layout img {
+            width: 100%; /* 이미지가 열의 너비에 맞게 조절되도록 설정 */
+            height: auto; /* 이미지의 가로세로 비율을 유지하면서 자동으로 조절 */
+        }
+    </style>
+</head>
+<body>
+<button type="button" onclick="savePDF()">PDF 다운</button>
+
+<script type="text/javascript">
+    function savePDF(){
+        html2canvas(document.querySelector('.multi-layout'), {
+            allowTaint: true, // cross-origin allow
+            useCORS: true,    // CORS 사용한 서버로부터 이미지 로드할 것인지 여부
+            scale: 2         // 기본 96dpi에서 해상도를 두 배로 증가
+        }).then(function(canvas) {
+            var imgData = canvas.toDataURL('image/png');
+            var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+            var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+            var heightLeft = imgHeight;
+            var margin = 10; // 출력 페이지 여백설정
+            var doc = new jspdf.jsPDF('p', 'mm');
+            var position = 0;
+
+            doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 20) {
+                position = heightLeft - imgHeight;
+                position = position - 20;
+
+                doc.addPage();
+                doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            doc.save('filename.pdf');
+        });
+    }
+</script>
+
+<div class="multi-layout">
+    <p> <img src="https://img.chunjae-platform.com/upload/capture/tsherpa/question/966536/966536_2024-02-08.svg"> </p>
+    <p> <img src="https://img.chunjae-platform.com/upload/capture/tsherpa/question/966536/966536_2024-02-08.svg"> </p>
+    <p> <img src="https://img.chunjae-platform.com/upload/capture/tsherpa/question/966536/966536_2024-02-08.svg"> </p>
+</div>
+</body>
+</html>

@@ -1,9 +1,7 @@
 package com.sherpa.exambank.method.service;
 
-import com.sherpa.exambank.method.domain.ExamGroupByLargeChapterResponse;
-import com.sherpa.exambank.method.domain.ExamList;
-import com.sherpa.exambank.method.domain.Step0ChapterResponse;
-import com.sherpa.exambank.method.domain.Step0ExamResponse;
+import com.sherpa.exambank.method.domain.*;
+import com.sherpa.exambank.outapi.resonse.ResponseSeven;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -178,6 +176,51 @@ public class MethodService {
         // [*****] null일 경우 예외처리
 
         return response;
+
+    }
+
+    /**
+     * step0 셋팅지 ID에 따른  조회
+     * @param examId  시험지ID
+     * @return 리스트[교과서명, 교육과정]
+     */
+    public ResponseSeven findItemListBySettingExamId(SettingExamRequest settingExamRequest) throws InstantiationException, IllegalAccessException {
+        // 요청 url
+        URI uri = UriComponentsBuilder
+                .fromUriString(tsherpaURL)
+                .path("/item-img/exam/item-list") // api #7 교재&대단원 별 T셀파 셋팅지 리스트 조회
+                .encode()
+                .build()
+                .toUri();
+
+        // 요청 httpEntity의 header 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        // 요청 httpEntity의 body에 포함 될 jsonObject 생성
+        JSONObject requestJson = new JSONObject();
+        requestJson.put("examId", settingExamRequest.getExamId());
+        log.info(settingExamRequest.getExamId());
+
+        HttpEntity<String> request = new HttpEntity<>(requestJson.toString(), headers);
+        log.info("postwithParamAndBody request : " + request);
+
+        // post 요청 및 응답
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseSeven response = restTemplate.postForObject(
+                uri, request, ResponseSeven.class
+        );
+        log.info(response.toString());
+
+        // [*****] null일 경우 예외처리
+
+
+        if(response.getSuccessYn().equals("Y")){
+            return response;
+        } else {
+            return null;
+        }
+
+
 
     }
 }

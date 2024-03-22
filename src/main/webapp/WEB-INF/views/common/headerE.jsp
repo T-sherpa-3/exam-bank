@@ -27,18 +27,12 @@
             <!-- 중등 고등, 수능, 시험지 보관함 탭 -->
             <ul class="tabs__list tabs__list--3">
               <li class="tabs__item" id="btn-examBank">
-                <a
-                        href="http://localhost:8080/exambank/exambank"
-                        class="tabs__link tabs__link--on"
-                >중학</a
-                >
+                <a href="http://localhost:8080/exambank/booklist"
+                        class="tabs__link tabs__link--on">중학</a>
               </li>
               <li class="tabs__item" id="btn-storage">
-                <a
-                        href="http://localhost:8080/exambank/ExamBank-Storage"
-                        class="tabs__link"
-                >시험지 보관함</a
-                >
+                <a href="http://localhost:8080/exambank/storage"
+                        class="tabs__link">시험지 보관함</a>
               </li>
             </ul>
             <!-- // 중등 고등, 수능, 시험지 보관함 탭 -->
