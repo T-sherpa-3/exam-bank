@@ -260,9 +260,9 @@
             let setHeight = 0; // 캡쳐할 canvas 높이
             sleep(1000).then(() => {
                 html2canvas(document.querySelector('.test_paper'), {
-                    // allowTaint: true, // cross-origin allow
-                    // useCORS: true,    // CORS 사용한 서버로부터 이미지 로드할 것인지 여부
-                    // scale: 2         // 기본 96dpi에서 해상도를 두 배로 증가
+                    allowTaint: true, // cross-origin allow
+                    useCORS: true,    // CORS 사용한 서버로부터 이미지 로드할 것인지 여부
+                    scale: 2         // 기본 96dpi에서 해상도를 두 배로 증가
                 }).then(function (total_canvas) {
                     console.log('total_canvas', total_canvas);
 
